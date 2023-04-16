@@ -21,20 +21,20 @@ def get_occurrences(pattern, text):
     if len(pattern) > len(text):
         return Occurrences
 
-    patternHash = 0
-    patternText = 0
+    hashP = 0
+    HashT = 0
     for i in range(len(pattern)):
-        patternHash = (patternHash * 263 + ord(pattern[i])) % 10**9
-        patternText = (patternText * 263 + ord(text[i])) % 10**9
+        hashP = (hashP * 263 + ord(pattern[i])) % 10**9
+        HashT = (HashT * 263 + ord(text[i])) % 10**9
     
     for i in range(len(text) - len(pattern) + 1):
-        if patternHash == patternText:
+        if hashP == HashT:
             if text[i:i+len(pattern)] == pattern:
                 Occurrences.append(i)
 
         if i < len(text) - len(pattern):
-            patternText = (263 * (patternText - ord(text[i]) * pow(263, len(pattern)-1, 10*9)) + ord(text[i+len(pattern)])) % 10*9
-            patternText = (patternText + 10*9) % 10*9
+            HashT = (263 * (HashT - ord(text[i]) * pow(263, len(pattern)-1, 10*9)) + ord(text[i+len(pattern)])) % 10*9
+            HashT = (HashT + 10*9) % 10*9
     return Occurrences
 
 
